@@ -10,15 +10,13 @@
 
 ---
 
-## Table of Contents
+## QUICK LINKS
 
-- [ABOUT THIS COURSE](#about-this-course)
+- [SCHEDULE](docs/READ_schedule.md)
+- [CANVAS](https://canvas.cornell.edu/courses/81764)
 - [SYLLABUS](#YOUR-SYLLABUS)
 - [Questions?](#-questions)
 
----
-
-![](docs/images/banner.png)
 ---
 
 ### ABOUT THIS COURSE
@@ -29,18 +27,15 @@ Modern engineering systems increasingly rely on cloud-based, AI-driven data proc
 
 See course details in the [`docs/`](docs/) folder! Includes:
 
-#### [📌 READ: Course Details](docs/READ_course_details.md)
-
-#### [📌 READ: Course Schedule](docs/READ_schedule.md)
-
-#### [📌 READ: Course Assignments](docs/READ_assignments.md)
-- [Assignment Breakdown](docs/READ_assignments.md#-assignment-breakdown)
-- [Grading Practices and Policies](docs/READ_assignments.md#-grading-practices-and-policies)
-- [Grading Scale](docs/READ_assignments.md#-grading-scale)
-
-#### [📌 READ: Course Materials](docs/READ_course_materials.md)
-- [Readings](docs/READ_course_materials.md#-readings)
-- [Software](docs/READ_course_materials.md#-software)
+- [📌 READ: Course Details](docs/READ_course_details.md)
+- [📌 READ: Course Assignments](docs/READ_assignments.md)
+    - [Assignment Breakdown](docs/READ_assignments.md#-assignment-breakdown)
+    - [Grading Practices and Policies](docs/READ_assignments.md#-grading-practices-and-policies)
+    - [Grading Scale](docs/READ_assignments.md#-grading-scale)
+- [📌 READ: Course Materials](docs/READ_course_materials.md)
+    - [Readings](docs/READ_course_materials.md#-readings)
+    - [Software](docs/READ_course_materials.md#-software)
+- [📌 READ: Course Schedule](docs/READ_schedule.md)
 
 
 ---
