@@ -10,7 +10,7 @@
 
 ---
 
-## QUICK LINKS
+## 📚 QUICK LINKS
 
 - [SCHEDULE](docs/READ_schedule.md)
 - [CANVAS](https://canvas.cornell.edu/courses/81764)
@@ -19,7 +19,7 @@
 
 ---
 
-### ABOUT THIS COURSE
+### 🎯 ABOUT THIS COURSE
 
 Modern engineering systems increasingly rely on cloud-based, AI-driven data processing, automation, and analytics. This course equips Systems Engineering students with the coding skills needed to interact with cloud-hosted data, automate workflows, and build scalable AI-powered apps and analytics. Students will gain hands-on experience in querying web APIs, building APIs, and leveraging AI models for automation. Topics include API calls, querying Generative AI, and automation, all to serve automated data reporting. Participants will learn to examine and critique uses of AI in modern systems, considering risk, value, tradeoffs, and policy issues for the customer and society. By the end of the course, students will have built cloud-hosted, AI-powered applications and reporting systems that can dynamically retrieve, process, and visualize data using generative AI. Students are expected to spend 3-4 hours per week per credit hour. Intended for graduate students performing technical tasks interested in software development or data analytics.
 
@@ -38,7 +38,28 @@ See course details in the [`docs/`](docs/) folder! Includes:
 - [📌 READ: Course Schedule](docs/READ_schedule.md)
 
 
+## 🧱 Modules
+
+- [00_quickstart](00_quickstart/)
+- [01_query_api](01_query_api/)
+- [02_productivity](02_productivity/)
+- [03_query_ai](03_query_ai/)
+- [04_deployment](04_deployment/)
+- [05_hackathon](05_hackathon/)
+- [06_agents](06_agents/)
+- [07_rag](07_rag/)
+- [08_function_calling](08_function_calling/)
+- [09_text_analysis](09_text_analysis/)
+- [10_data_management](10_data_management/)
+- [11_decision_support](11_decision_support/)
+- [12_end](12_end/)
+- [docs](docs/)
+
 ---
+
+
+
+
 
 # 💬 Questions?
 
