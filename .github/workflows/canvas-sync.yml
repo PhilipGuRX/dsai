@@ -30,7 +30,7 @@ jobs:
           # Check if SSH key secret exists and is not empty
           SSH_KEY="${{ secrets.SUBMODULE_SSH_KEY }}"
           
-          # Trim whitespace and check if empty (using basic shell, not sed)
+          # Trim whitespace and check if empty (using basic shell)
           SSH_KEY=$(echo "$SSH_KEY" | xargs)
           
           if [ -z "$SSH_KEY" ] || [ "$SSH_KEY" = "" ]; then
@@ -48,8 +48,9 @@ jobs:
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           
-          # Write the key file, ensuring proper line endings
-          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_rsa
+          # Write the key file - GitHub secrets preserve newlines, so echo should work
+          # But we need to ensure the variable expansion preserves newlines
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           
           # Validate the key file was created correctly
@@ -58,9 +59,23 @@ jobs:
             exit 1
           fi
           
-          # Validate key format
+          # Validate key format - check for BEGIN marker
           if ! grep -q "BEGIN.*PRIVATE KEY" ~/.ssh/id_rsa; then
-            echo "Error: SSH key file does not contain valid private key format."
+            echo "Error: SSH key file does not contain BEGIN marker."
+            echo "First 200 chars of key file:"
+            head -c 200 ~/.ssh/id_rsa
+            echo ""
+            echo "Please ensure the SUBMODULE_SSH_KEY secret includes:"
+            echo "  - -----BEGIN OPENSSH PRIVATE KEY-----"
+            echo "  - All key data lines"
+            echo "  - -----END OPENSSH PRIVATE KEY-----"
+            exit 1
+          fi
+          
+          # Validate key format - check for END marker
+          if ! grep -q "END.*PRIVATE KEY" ~/.ssh/id_rsa; then
+            echo "Error: SSH key file does not contain END marker."
+            echo "Please ensure the SUBMODULE_SSH_KEY secret includes the END marker."
             exit 1
           fi
           
@@ -74,10 +89,15 @@ jobs:
           # Try to add the key and capture output
           if ! ssh-add ~/.ssh/id_rsa 2>&1; then
             echo "Error: Failed to add SSH key to agent."
-            echo "Key file contents (first 100 chars):"
-            head -c 100 ~/.ssh/id_rsa || echo "Could not read key file"
+            echo "Key file validation:"
+            echo "  Has BEGIN marker: $(grep -q 'BEGIN.*PRIVATE KEY' ~/.ssh/id_rsa && echo 'Yes' || echo 'No')"
+            echo "  Has END marker: $(grep -q 'END.*PRIVATE KEY' ~/.ssh/id_rsa && echo 'Yes' || echo 'No')"
+            echo "  File size: $(wc -c < ~/.ssh/id_rsa) bytes"
+            echo "  First line: $(head -n 1 ~/.ssh/id_rsa)"
+            echo "  Last line: $(tail -n 1 ~/.ssh/id_rsa)"
             echo ""
-            echo "This may indicate the key is invalid, corrupted, or improperly formatted."
+            echo "Please verify the SUBMODULE_SSH_KEY secret contains the complete private key"
+            echo "including BEGIN and END markers."
             exit 1
           fi
           
