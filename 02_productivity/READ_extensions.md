@@ -53,18 +53,18 @@ The following table lists recommended extensions organized by category. Star rat
 
 ### Top Recommended Extensions
 
-| Extension Name | Purpose | Link | Value Rating |
-|:---------------|:--------|:-----|:------------|
-| Bracket Pair Colorizer | Colorize matching brackets for better code readability | [Bracket Pair Colorizer](https://marketplace.visualstudio.com/items?itemName=coenraads.bracket-pair-colorizer-2) | ⭐⭐⭐⭐⭐ |
-| Rainbow CSV | Colorize CSV files for easier reading | [Rainbow CSV](https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv) | ⭐⭐⭐⭐⭐ |
-| GitHub Pull Requests | Review and manage GitHub pull requests directly in Cursor | [GitHub PRs](https://marketplace.visualstudio.com/items?itemName=github.vscode-pull-request-github) | ⭐⭐⭐⭐ |
-| Markdown Preview Enhanced | Advanced markdown preview with math, diagrams, and more | [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced) | ⭐⭐⭐⭐⭐ |
-| Markdown Mermaid | Mermaid diagram support in markdown | [Markdown Mermaid](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid) | ⭐⭐⭐⭐⭐ |
-| Mermaid Chart | Create and edit Mermaid diagrams | [Mermaid Chart](https://marketplace.visualstudio.com/items?itemName=mermaidchart.vscode-mermaid-chart) | ⭐⭐⭐ |
-| R | R language support with IntelliSense, debugging, and code execution | [R Extension](https://marketplace.visualstudio.com/items?itemName=reditorsupport.r) | ⭐⭐⭐⭐⭐ |
-| R Syntax | Enhanced R syntax highlighting | [R Syntax](https://marketplace.visualstudio.com/items?itemName=reditorsupport.r-syntax) | ⭐⭐⭐⭐⭐ |
-| Python | Python language support with IntelliSense, linting, debugging, and Jupyter notebooks | [Python Extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python) | ⭐⭐⭐⭐⭐ |
-| Code Runner | Run code snippets or files in multiple languages | [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) | ⭐⭐⭐ |
+| Extension Name | Purpose | Value Rating |
+|:---------------|:--------|:------------|
+| [Bracket Pair Colorizer](https://marketplace.visualstudio.com/items?itemName=coenraads.bracket-pair-colorizer-2) | Colorize matching brackets for better code readability | ⭐⭐⭐⭐⭐ |
+| [Rainbow CSV](https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv) | Colorize CSV files for easier reading | ⭐⭐⭐⭐⭐ |
+| [GitHub Pull Requests](https://marketplace.visualstudio.com/items?itemName=github.vscode-pull-request-github) | Review and manage GitHub pull requests directly in Cursor | ⭐⭐⭐⭐ |
+| [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced) | Advanced markdown preview with math, diagrams, and more | ⭐⭐⭐⭐⭐ |
+| [Markdown Mermaid](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid) | Mermaid diagram support in markdown | ⭐⭐⭐⭐⭐ |
+| [Mermaid Chart](https://marketplace.visualstudio.com/items?itemName=mermaidchart.vscode-mermaid-chart) | Create and edit Mermaid diagrams | ⭐⭐⭐ |
+| [R](https://marketplace.visualstudio.com/items?itemName=reditorsupport.r) | R language support with IntelliSense, debugging, and code execution | ⭐⭐⭐⭐⭐ |
+| [R Syntax](https://marketplace.visualstudio.com/items?itemName=reditorsupport.r-syntax) | Enhanced R syntax highlighting | ⭐⭐⭐⭐⭐ |
+| [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) | Python language support with IntelliSense, linting, debugging, and Jupyter notebooks | ⭐⭐⭐⭐⭐ |
+| [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) | Run code snippets or files in multiple languages | ⭐⭐⭐ |
 
 See below for a list of other helpful items.
 
@@ -72,48 +72,48 @@ See below for a list of other helpful items.
 
 ### Code Quality & Productivity
 
-| Extension Name | Purpose | Link | Value Rating |
-|:---------------|:--------|:-----|:------------|
-| Excel Viewer | View Excel files (.xlsx, .xls) in the editor | [Excel Viewer](https://marketplace.visualstudio.com/items?itemName=grapecity.gc-excelviewer) | ⭐⭐⭐ |
-| Todo Tree | Highlight TODO, FIXME, and other comment tags in your code | [Todo Tree](https://marketplace.visualstudio.com/items?itemName=gruntfuggly.todo-tree) | ⭐⭐⭐ |
+| Extension Name | Purpose | Value Rating |
+|:---------------|:--------|:------------|
+| [Excel Viewer](https://marketplace.visualstudio.com/items?itemName=grapecity.gc-excelviewer) | View Excel files (.xlsx, .xls) in the editor | ⭐⭐⭐ |
+| [Todo Tree](https://marketplace.visualstudio.com/items?itemName=gruntfuggly.todo-tree) | Highlight TODO, FIXME, and other comment tags in your code | ⭐⭐⭐ |
 
 
 ### Shiny & Posit Tools
 
-| Extension Name | Purpose | Link | Value Rating |
-|:---------------|:--------|:-----|:------------|
-| Shiny | R Shiny app development support | [Shiny Extension](https://marketplace.visualstudio.com/items?itemName=posit.shiny) | ⭐⭐⭐⭐⭐ |
-| Posit Publisher | Publish R Markdown and Quarto documents | [Posit Publisher](https://marketplace.visualstudio.com/items?itemName=posit.publisher) | ⭐⭐⭐⭐ |
+| Extension Name | Purpose | Value Rating |
+|:---------------|:--------|:------------|
+| [Shiny](https://marketplace.visualstudio.com/items?itemName=posit.shiny) | R Shiny app development support | ⭐⭐⭐⭐⭐ |
+| [Posit Publisher](https://marketplace.visualstudio.com/items?itemName=posit.publisher) | Publish R Markdown and Quarto documents | ⭐⭐⭐⭐ |
 
 
 ### LaTeX & Academic Writing
 
-| Extension Name | Purpose | Link | Value Rating |
-|:---------------|:--------|:-----|:------------|
-| LaTeX Workshop | LaTeX typesetting support with compilation, preview, and IntelliSense | [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=james-yu.latex-workshop) | ⭐⭐⭐⭐ |
-| Overleaf Workshop | Integration with Overleaf for collaborative LaTeX editing | [Overleaf Workshop](https://marketplace.visualstudio.com/items?itemName=iamhyc.overleaf-workshop) | ⭐⭐⭐ |
-| PDF | View PDF files directly in the editor | [PDF Viewer](https://marketplace.visualstudio.com/items?itemName=tomoki1207.pdf) | ⭐⭐⭐ |
+| Extension Name | Purpose | Value Rating |
+|:---------------|:--------|:------------|
+| [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=james-yu.latex-workshop) | LaTeX typesetting support with compilation, preview, and IntelliSense | ⭐⭐⭐⭐ |
+| [Overleaf Workshop](https://marketplace.visualstudio.com/items?itemName=iamhyc.overleaf-workshop) | Integration with Overleaf for collaborative LaTeX editing | ⭐⭐⭐ |
+| [PDF](https://marketplace.visualstudio.com/items?itemName=tomoki1207.pdf) | View PDF files directly in the editor | ⭐⭐⭐ |
 
 
 ### Docker & Containers
 
-| Extension Name | Purpose | Link | Value Rating |
-|:---------------|:--------|:-----|:------------|
-| Docker | Build, manage, and deploy containerized applications | [Docker Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) | ⭐⭐⭐ |
-| Containers | Manage containers and container images | [Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-containers) | ⭐⭐⭐ |
+| Extension Name | Purpose | Value Rating |
+|:---------------|:--------|:------------|
+| [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) | Build, manage, and deploy containerized applications | ⭐⭐⭐ |
+| [Containers](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-containers) | Manage containers and container images | ⭐⭐⭐ |
 
 ### Development Tools
 
-| Extension Name | Purpose | Link | Value Rating |
-|:---------------|:--------|:-----|:------------|
-| PowerShell | PowerShell language support for Windows scripting | [PowerShell](https://marketplace.visualstudio.com/items?itemName=ms-vscode.powershell) | ⭐⭐⭐ |
-| Remote - WSL | Use Windows Subsystem for Linux from Cursor | [Remote WSL](https://marketplace.visualstudio.com/items?itemName=anysphere.remote-wsl) | ⭐⭐⭐ |
+| Extension Name | Purpose | Value Rating |
+|:---------------|:--------|:------------|
+| [PowerShell](https://marketplace.visualstudio.com/items?itemName=ms-vscode.powershell) | PowerShell language support for Windows scripting | ⭐⭐⭐ |
+| [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=anysphere.remote-wsl) | Use Windows Subsystem for Linux from Cursor | ⭐⭐⭐ |
 
 ### Themes
 
-| Extension Name | Purpose | Link | Value Rating |
-|:---------------|:--------|:-----|:------------|
-| Tomorrow Night Bright R Classic | Color theme optimized for R development | [Tomorrow Night Bright R](https://marketplace.visualstudio.com/items?itemName=gvelasq.tomorrow-night-bright-r-classic) | ⭐⭐ |
+| Extension Name | Purpose | Value Rating |
+|:---------------|:--------|:------------|
+| [Tomorrow Night Bright R Classic](https://marketplace.visualstudio.com/items?itemName=gvelasq.tomorrow-night-bright-r-classic) | Color theme optimized for R development | ⭐⭐ |
 
 ---
 
