@@ -1,0 +1,82 @@
+---
+description: Custom README formatting preferences for documentation
+globs: ["**/README*.md", "**/readme*.md"]
+alwaysApply: false
+---
+
+# My README Style Guide
+
+Apply these formatting preferences when generating or editing README files.
+
+---
+
+## Headers
+
+- Use **emoji-prefixed section headers** for main sections:
+  - `## 📋 Overview` — intro and purpose
+  - `## 🔧 Setup` or `## 🚀 Usage` — how to run/install
+  - `## 📦 Data Structure` or `## 📂 Contents` — structure and organization
+  - `## 🔗 Related` — links and references
+  - `## ⚠️ Troubleshooting` — common issues (when applicable)
+- Use `###` for subsections without emoji unless they need emphasis
+- Keep header hierarchy shallow: `##` and `###` only; avoid `####`
+
+---
+
+## Icons
+
+Use icons consistently:
+- **📋** Overview, summary, contents
+- **🔧** Setup, configuration, installation
+- **🚀** Usage, running, deployment
+- **📦** Data, structure, API
+- **🔗** Links, references, related files
+- **⚠️** Warnings, troubleshooting, caveats
+- **✅** Completed steps, checklists
+- **💡** Tips, notes, insights
+
+---
+
+## Code Blocks
+
+- **Always specify language** for syntax highlighting: ` ```python `, ` ```bash `, ` ```json `
+- Use fenced code blocks (triple backticks); never indented blocks
+- Keep code examples short and runnable
+- Add a brief comment above or below the block explaining what it does
+
+---
+
+## File References
+
+- Use **relative hyperlinks** for project files
+- Format: `` [`filename.ext`](path/to/file.ext) `` (filename in backticks as link text)
+- For external URLs: `[Descriptive Text](https://url)` — link text describes the destination
+
+---
+
+## Tone and Style
+
+- **Direct**: State facts; avoid "it is obvious," "clearly," "as you can see"
+- **Educational**: Explain *why* when helpful; assume reader is learning
+- **Concise**: Short sentences; avoid filler and redundancy
+- **Bold** key terms on first use
+- Use `inline code` for: commands, file names, variable names, API parameters
+
+---
+
+## Structure Template
+
+1. **Title** — `# Topic Name` with optional `> blockquote` subtitle
+2. **Horizontal rule** — `---` after intro
+3. **📋 Overview** — What this is and why it matters
+4. **Main sections** — Content with emoji headers
+5. **🔗 Related** — Links to related files or docs
+6. **Footer** — `---` and optional back-to-top link
+
+---
+
+## Tables
+
+- Use Markdown tables for structured info (parameters, columns, options)
+- Keep headers in first row; align for readability
+- Prefer tables over long bullet lists when comparing multiple attributes

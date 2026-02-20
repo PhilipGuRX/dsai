@@ -35,6 +35,12 @@ Complete these activities in order:
 
 ---
 
+## Lab: API → AI report
+
+- [`report_with_ai.py`](report_with_ai.py) — Fetches Census state population from the API (same as `01_query_api/my_good_query.py`), processes and aggregates the data, then asks Ollama (local/cloud) or OpenAI for a short reporting summary. Run from project root: `python3 03_query_ai/report_with_ai.py`. Set `AI_BACKEND=ollama` (default), `ollama_cloud`, or `openai` in `.env` as needed.
+
+---
+
 ## Readings
 
 - None.

@@ -13,8 +13,14 @@
 # Now, you need an API key to get past the "are-you-human" check
 # Register for a free API key at https://reqres.in/
 
-# Load environment variable TEST_API_KEY from .env file
-source .env
+# Load .env from project root (parent of this script's directory) so it works from any cwd
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+if [ -f "$PROJECT_ROOT/.env" ]; then
+  set -a
+  source "$PROJECT_ROOT/.env"
+  set +a
+fi
 # Print it to the console
 echo "TEST_API_KEY: $TEST_API_KEY"
 
@@ -22,30 +28,32 @@ echo "TEST_API_KEY: $TEST_API_KEY"
 # 1. GET request (simplest version, only works when no headers required)
 #    Fetches user whose id is 2, using specific endpoint /api/users/2
 # This will fail because we are not using an API key!
-curl -X GET "https://reqres.in/api/users/2"
-
+curl -s -X GET "https://reqres.in/api/users/2"
+echo ""
 
 
 
 # ---
 # 2. GET request with custom header
 #    Fetches user with id=2, using an API key in the header
-curl -X GET "https://reqres.in/api/users/2" \
+curl -s -X GET "https://reqres.in/api/users/2" \
      -H "x-api-key: $TEST_API_KEY"
+echo ""
 
 # 3. GET request with query parameters
 #    Fetches users on page 1, with id=5 (note: this API ignores id in query string)
-curl -X GET "https://reqres.in/api/users?page=1&id=5" \
+curl -s -X GET "https://reqres.in/api/users?page=1&id=5" \
      -H "x-api-key: $TEST_API_KEY"
-
+echo ""
 
 # ---
 # 4. POST request to create a new user
 #    Sends JSON data with name and job fields
-curl -X POST "https://reqres.in/api/users" \
+curl -s -X POST "https://reqres.in/api/users" \
      -H "Content-Type: application/json" \
      -H "x-api-key: $TEST_API_KEY" \
      -d '{"name": "Ada Lovelace", "job": "engineer"}'
+echo ""
 
 # ---
 # 5. More API Call Method Examples

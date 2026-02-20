@@ -3,24 +3,22 @@
 # Local .bashrc for this repository
 # This file contains project-specific bash configurations
 
-# Add LM Studio to PATH for this project (here's mine)
-export PATH="$PATH:/c/Users/tmf77/.lmstudio/bin"
-alias lms='/c/Users/tmf77/.lmstudio/bin/lms.exe'
+# Add LM Studio to PATH for this project (uncomment and update if you install LM Studio)
+# export PATH="$PATH:/Applications/LM Studio.app/Contents/MacOS"
 
-export PATH="$PATH:/c/Users/tmf77/AppData/Local/Programs/Ollama"
-alias ollama='/c/Users/tmf77/AppData/Local/Programs/Ollama/ollama.exe'
+# Add Ollama to PATH for this project (uncomment if you install Ollama)
+# export PATH="$PATH:/usr/local/bin"
+# alias ollama='/usr/local/bin/ollama'
 
-# Add R to your Path for this project (here's mine)
-export PATH="$PATH:/c/Program Files/R/R-4.4.1/bin"
-alias Rscript='/c/Program Files/R/R-4.4.1/bin/Rscript.exe'
-# Add R libraries to your path for this project (here's mine)
-export R_LIBS_USER="/c/Users/tmf77/AppData/Local/R/win-library/4.2"
+# Add R to your Path for this project
+export PATH="$PATH:/usr/local/bin"
+alias Rscript='/usr/local/bin/Rscript'
+# Add R libraries to your path for this project
+export R_LIBS_USER="/Library/Frameworks/R.framework/Versions/4.2/Resources/library"
 
-# Add Python to your Path for this project (here's mine)
-export PATH="$PATH:/c/Python312"
-alias python='/c/Python312/python.exe'
-
-# Add uvicorn to your Path for this project - if using Python for APIs (here's mine)
-export PATH="$PATH:/c/Users/tmf77/AppData/Roaming/Python/Python312/Scripts"
+# Add Python to your Path for this project
+export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/3.12/bin"
+alias python='/Library/Frameworks/Python.framework/Versions/3.12/bin/python3'
+alias pip='/Library/Frameworks/Python.framework/Versions/3.12/bin/pip3'
 
 echo "✅ Local .bashrc loaded."
