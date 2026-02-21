@@ -72,8 +72,11 @@ Design, implement, and deploy a multi-part AI-powered system that demonstrates y
 Your project will receive a score of **0 to 100** based on:
 
 ### 🧱 Tool Implementation (50 pts)
-- **(25 pts)** An effective, working tool — does it run and deploy?
-- **(25 pts)** Valid AI integration and meaningful AI-powered functionality — does the AI integration make sense and add value?
+- **(10 pts)** Did you host and connect to a Supabase database in your pipeline?
+- **(10 pts)** Did you serve an API to do some kind of data processing/handling in your pipeline?
+- **(10 pts)** Did you query an AI model to solve the prompt problem in your pipeline?
+- **(10 pts)** Did you serve a Shiny App to deliver results to a user in your pipeline?
+- **(10 pts)** An effective, working tool — does it run and deploy?
 
 ### 🧭 Tool Design (15 pts)
 - **(5 pts)** System architecture follows the required pipeline structure (database → API → dashboard → AI)
