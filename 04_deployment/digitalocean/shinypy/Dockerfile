@@ -8,9 +8,10 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app
-COPY app.py .
+# Copy app and run script
+COPY app.py run.sh .
+RUN chmod +x run.sh
 
-# Listen on all interfaces for container hosting (App Platform may set PORT)
+# Listen on all interfaces; use PORT from env (DigitalOcean sets this at runtime)
 EXPOSE 8000
-CMD ["shiny", "run", "app.py", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["./run.sh"]
