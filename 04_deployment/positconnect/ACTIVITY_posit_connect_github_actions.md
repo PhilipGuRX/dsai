@@ -95,7 +95,18 @@ Choose from:
    - In the example below, we deployed 4 separate apps via 4 `.yaml` docs. 2 actions succeeded (shinyr and plumber) and 2 actions failed (shinypy and fastapi). 
 ![](../../docs/images/pc_actions_list.png)
 - [ ] Once the workflow completes successfully, log into `connect.systems-apps.com` and verify your application appears in the dashboard
+![](../../docs/images/pc_deployed_list.png)
 - [ ] Click on your deployed application to test it
+
+For further customization, try the following:
+
+- [ ] Customize who can see your app. As a starting point, **Specific users or groups** is the most secure option. You can add your group members here! Note: This Posit Connect license does not allow for sharing apps publicly without login (but that may change in a few weeks. TBD.)
+![](../../docs/images/pc_deployed_access.png)
+- [ ] Customize your Environmental Variables under the **Settings >> Vars** tab. For example, you might need to add private secrets like the **OPENAI_API_KEY** or other API keys your app relies on.
+![](../../docs/images/pc_deployed_env.png)
+- [ ] Customize your **App Name, Description, and Thumbnail** to find it more easily.
+![](../../docs/images/pc_deployed_info.png)
+
 
 ---
 
