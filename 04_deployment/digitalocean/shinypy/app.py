@@ -175,8 +175,8 @@ def report_result():
     # Only run after user clicks; initial state is empty
     if input.generate() == 0:
         return {"error": None, "records": [], "agg": None, "summary": "", "ran": False}
-    with ui.Progress(min=0, max=3, message="Running pipeline…") as p:
-        p.set(message="Fetching Census…", value=1)
+    with ui.Progress(min=0, max=3) as p:
+        p.set(1, message="Fetching Census…")
         try:
             raw = fetch_census()
         except requests.RequestException as e:
@@ -186,12 +186,12 @@ def report_result():
             return {"error": "No records after processing.", "records": [], "agg": None, "summary": "", "ran": True}
         agg = aggregate_for_report(records)
         data_blob = format_data_for_prompt(records, agg)
-        p.set(message="Requesting AI summary…", value=2)
+        p.set(2, message="Requesting AI summary…")
         try:
             summary = get_ai_summary(data_blob)
         except Exception as e:
             summary = f"AI error: {e}"
-        p.set(message="Done.", value=3)
+        p.set(3, message="Done.")
     return {"error": None, "records": records, "agg": agg, "summary": summary, "ran": True}
 
 with ui.card():
