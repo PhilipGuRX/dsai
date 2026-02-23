@@ -73,7 +73,7 @@ Choose from:
 - For Shiny R Apps, use [`.github/workflows/deploy-shinyr.yml`](../../.github/workflows/deploy-shinyr.yml).
 - For Shiny Python Apps, use [`.github/workflows/deploy-shinypy.yml`](../../.github/workflows/deploy-shinypy.yml).
 - For R-based Plumber APIs, use [`github/workflows/deploy-plumber.yml`](../../.github/workflows/deploy-plumber.yml).
-- For Python-based FastAPI apps, use [`.github/workflows/deploy-fastapi.yml`](../../.github/workflows/deploy-fastapi.yml).
+- For Python-based FastAPI apps, do NOT use Github Actions. Try instead to deploy it from the command line, using this script: [`04_deployment/positconnect/fastapi/pushme.sh`](fastapi/pushme.sh).
 
 - [ ] Please select the appropriate template, copy it, and put it in a file at this path in  your repo: `.github/workflows/<NAME_OF_YOUR_FILE>.yml`. 
 - Note: It **must** go in the `.github/workflows` folder; this is a reserved name for Github actions.
@@ -100,8 +100,8 @@ Choose from:
 
   - Shiny Python at: https://connect.systems-apps.com/04_deployment/positconnect/shinypy/
   - Shiny R at: https://connect.systems-apps.com/04_deployment/positconnect/shinyr/
-  - FastAPI at: https://connect.systems-apps.com/04_deployment/positconnect/fastapi/
   - Plumber at: https://connect.systems-apps.com/04_deployment/positconnect/plumber/
+  - FastAPI at: https://connect.systems-apps.com/04_deployment/positconnect/fastapi/
 
 
 For further customization, try the following:
