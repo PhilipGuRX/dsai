@@ -48,10 +48,13 @@ class ASGItoWSGI:
     def __call__(self, environ, start_response):
         """WSGI application interface."""
         # Convert WSGI environ to ASGI scope
+        server_protocol = environ.get("SERVER_PROTOCOL", "HTTP/1.1")
+        http_version = server_protocol.split("/")[1] if "/" in server_protocol else "1.1"
+        
         scope = {
             "type": "http",
-            "http_version": environ.get("SERVER_PROTOCOL", "HTTP/1.1").split("/")[1],
-            "method": environ["REQUEST_METHOD"],
+            "http_version": http_version,
+            "method": environ.get("REQUEST_METHOD", "GET"),
             "scheme": environ.get("wsgi.url_scheme", "http"),
             "path": environ.get("PATH_INFO", ""),
             "raw_path": environ.get("PATH_INFO", "").encode(),
@@ -106,36 +109,39 @@ class ASGItoWSGI:
         
         # Run the ASGI application
         try:
-            loop = asyncio.get_event_loop()
-        except RuntimeError:
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-        
-        if loop.is_closed():
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-        
-        loop.run_until_complete(self.asgi_app(scope, receive, send))
-        
-        # Start WSGI response
-        start_response(response_status, response_headers)
-        
-        # Return response body
-        return response_body_chunks
+            try:
+                loop = asyncio.get_event_loop()
+            except RuntimeError:
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+            
+            if loop.is_closed():
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+            
+            loop.run_until_complete(self.asgi_app(scope, receive, send))
+            
+            # Ensure we have a valid response
+            if response_status is None:
+                response_status = "500 Internal Server Error"
+                response_headers = [("Content-Type", "text/plain")]
+                response_body_chunks = [b"Internal Server Error: No response from ASGI app"]
+            
+            # Start WSGI response
+            start_response(response_status, response_headers)
+            
+            # Return response body (must be a list of bytes)
+            return response_body_chunks if response_body_chunks else [b""]
+            
+        except Exception as e:
+            # Handle any errors during ASGI execution
+            error_msg = f"500 Internal Server Error: {str(e)}".encode()
+            start_response("500 Internal Server Error", [("Content-Type", "text/plain")])
+            return [error_msg]
 
-
-# Detect if we're running under WSGI (Gunicorn/Posit Connect) or ASGI (uvicorn)
-# WSGI servers set wsgi.* keys in environ, but we can't check that here
-# Instead, we'll check for common WSGI environment indicators
-import os
 
 # For Posit Connect: use WSGI wrapper (Gunicorn expects WSGI)
 # For local uvicorn: use FastAPI directly (uvicorn expects ASGI)
-# We detect by checking if we're likely in a WSGI environment
-# Posit Connect typically sets certain environment variables, but as a fallback,
-# we'll make 'app' be the WSGI wrapper for production deployments
-# and use 'fastapi_app' directly for local testing via uvicorn
-
 # Default to WSGI wrapper for Posit Connect compatibility
 # For local testing, use: uvicorn app:fastapi_app
 app = ASGItoWSGI(fastapi_app)
