@@ -1,6 +1,6 @@
 # 📌 ACTIVITY
 
-## Deploy to Posit Cloud Connect
+## Deploy to Posit Connect Cloud
 
 🕒 *Estimated Time: 15 minutes*
 
@@ -8,11 +8,11 @@
 
 ## ✅ Your Task
 
-Deploy your application to Posit Cloud Connect using the official documentation.
+Deploy your application to Posit Connect Cloud using the official documentation.
 
 ### 🧱 Stage 1: Review Documentation
 
-- [ ] Visit the [Posit Cloud Connect documentation](https://docs.posit.co/connect-cloud/). Review deployment requirements and setup instructions. Ensure your application meets the prerequisites.
+- [ ] Visit the [Posit Connect Cloud documentation](https://docs.posit.co/connect-cloud/). Review deployment requirements and setup instructions. Ensure your application meets the prerequisites.
    - Any `.py` Shiny app needs a `prerequisites.txt` file.
    - Any `.R` Shiny app needs a `manifest.json`, made by `rsconnect::writeManifest("path/to/app/app.R")`.
 
