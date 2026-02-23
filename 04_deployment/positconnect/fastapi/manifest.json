@@ -3,7 +3,7 @@
   "locale": "English_United States.1252",
   "metadata": {
     "appmode": "python-api",
-    "entrypoint": "app"
+    "entrypoint": "app:app"
   },
   "python": {
     "version": "3.12.10",
