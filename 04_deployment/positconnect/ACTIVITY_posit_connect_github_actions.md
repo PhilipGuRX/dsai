@@ -10,7 +10,26 @@
 
 In this activity, you will set up **GitHub Actions** to automatically deploy your applications to **Posit Connect** when you push code to your repository.
 
-### 🧱 Stage 1: Create Posit Connect API Key
+### 🧱 Stage 1: Make a `manifest.json` file for your app or API. 
+
+A `manifest.json` file tells Posit Connect what dependencies and exact package/software versions are installed in your development environment pertaining to this app. 
+
+For a template script to build a `manifest.json`, run the `manifestme` script in your template app folder:
+
+- For Shiny R apps, use [`04_deployment/positconnect/shinyr/manifestme.R`](shinyr/manifestme.R).
+- For R-based Plumber API apps, use [`04_deployment/positconnect/plumber/manifestme.R`](plumber/manifestme.R).
+- For Shiny Python apps, use [`04_deployment/positconnect/shinypy/manifestme.sh`](shinypy/manifestme.sh).
+- For Python-based FastAPI apps, use [`04_deployment/positconnect/fastapi/manifestme.sh`](fastapi/manifestme.sh).
+
+For example:
+
+![](../../docs/images/pc_manifest_shinypy.png)
+![](../../docs/images/pc_manifest_shinypy_json.png)
+
+<br>
+---
+
+### 🧱 Stage 2: Create Posit Connect API Key
 
 - [ ] An email from connect.systems-apps.com has been sent to you, inviting you to join our Posit Connect server. Please accept the invite. (It probably went to your Spam Folder!)
 - [ ] Navigate to Your Account's **Manage Your API Keys** page.
@@ -46,6 +65,7 @@ You need to configure two secrets in your GitHub repository for **Posit Connect*
 ### 🧱 Stage 3: Create GitHub Actions Workflow
 
 Next, we need to create a **Github Actions workflow file** to deploy your application via Github. (There are other ways to deploy to Posit Connect, but this is the only easy way to sync it with your individual <u>private</u> **Github Repo**.)
+
 At the following links are several workflow templates, each designed to match a specific type of app. 
 
 Choose from:
@@ -66,6 +86,7 @@ Choose from:
 
 <br>
 ---
+
 
 ### 🧱 Stage 3: Test Deployment
 
