@@ -15,13 +15,16 @@
   },
   "files": {
     "requirements.txt": {
-      "checksum": "777c63e785578911775c69c5aafb0533"
+      "checksum": "f201888e2eefa5a2871c8449d8e5c9ea"
     },
     "README.md": {
       "checksum": "0af3e6ddbf63dff32fea746f640ec1be"
     },
     "app.py": {
-      "checksum": "8f33669676ddd2d3014d0c9fcaaa3bdb"
+      "checksum": "f8692a8facb47de29400aeedfabcc50e"
+    },
+    "greetings.json": {
+      "checksum": "cda43bf8ca70ac6c384abcabd0d886e8"
     },
     "manifestme.sh": {
       "checksum": "2ae23d47f8fc327662832f2ab0f27e19"
