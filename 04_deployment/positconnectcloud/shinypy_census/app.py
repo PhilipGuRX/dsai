@@ -14,10 +14,42 @@ import pandas as pd
 import requests
 from dotenv import load_dotenv
 
-# Optional .env for local dev; on Posit Connect Cloud use Settings >> Variables.
-_env_path = Path(__file__).resolve().parent / ".env"
-if _env_path.exists():
-    load_dotenv(_env_path)
+try:
+    import plotly.express as px
+    import plotly.graph_objects as go
+    from shinywidgets import render_plotly
+    HAS_PLOTLY = True
+except ImportError:
+    px = None
+    go = None
+    render_plotly = None
+    HAS_PLOTLY = False
+
+try:
+    import faicons as fa
+    ICONS = {
+        "people": fa.icon_svg("user", "regular"),
+        "income": fa.icon_svg("wallet"),
+        "housing": fa.icon_svg("dollar-sign"),
+    }
+except ImportError:
+    fa = None
+    ICONS = {"people": None, "income": None, "housing": None}
+
+# Optional .env loading for local dev.
+# 1) Load a .env next to this file (shinypy_census/.env), if present.
+# 2) Also look for a shared project-level .env (the course-wide one in dsai/).
+app_dir = Path(__file__).resolve().parent
+local_env = app_dir / ".env"
+if local_env.exists():
+    load_dotenv(local_env)
+
+# Walk up a few parents to find the shared dsai/.env, without reading anything else.
+for parent in app_dir.parents:
+    candidate = parent / ".env"
+    if candidate.exists():
+        load_dotenv(candidate)
+        break
 
 # Census API key (optional; 500 req/day without). Posit: CENSUS_API_KEY or TEST_API_KEY.
 API_KEY = (os.getenv("CENSUS_API_KEY") or os.getenv("TEST_API_KEY") or "").strip()
@@ -131,15 +163,20 @@ def format_demographics_for_prompt(records):
 # --- Market analysis: AI prompt for opportunities and risks ---
 
 MARKET_SYSTEM = (
-    "You are a market analyst. Reply only in markdown. Be concise. Use only numbers from the data. "
-    "Identify real business opportunities and risks; no filler."
+    "You are a market analyst and community planner. "
+    "Reply only in markdown. Be concise. Use only numbers from the data. "
+    "Identify concrete everyday-life suggestions for residents and specific commercial opportunities "
+    "and risks for businesses; avoid generic filler."
 )
-MARKET_PROMPT_TEMPLATE = """Using the demographic data below, write a short market analysis for businesses.
+MARKET_PROMPT_TEMPLATE = """Using the demographic data below, write a short market and lifestyle analysis.
 
 Requirements (use only numbers from the data):
 1. **Demographic profile** — 1–2 sentences: key stats (population, age, income, housing).
-2. **Opportunities** — 3–5 bullet points: where businesses could find demand or growth (cite numbers).
-3. **Risks / considerations** — 3–5 bullet points: demographic or economic risks (cite numbers).
+2. **Everyday life suggestions** — 3–5 bullet points with practical ideas for people living in this area
+   (services to seek out, community programs, housing or commuting considerations), citing the numbers.
+3. **Commercial opportunities** — 3–5 bullet points suggesting specific business types or services that
+   could work well here, with explicit numeric justification.
+4. **Risks / constraints** — 3–5 bullet points on demographic or economic risks, again citing numbers.
 
 Data:
 ---
@@ -228,13 +265,29 @@ with ui.sidebar(open="desktop"):
     )
     ui.hr()
     ui.input_action_button("run", "Run market analysis", class_="btn-primary")
-    ui.p("Fetches Census demographics for the selected area and generates AI-driven opportunities and risks.")
+    ui.p("Fetches Census demographics for the selected area and generates AI-driven everyday-life and commercial insights.")
     ui.hr()
-    ui.p(ui.strong("AI: "), AI_BACKEND)
-    ui.p("Set AI_BACKEND, OLLAMA_API_KEY or OPENAI_API_KEY in Settings >> Variables.")
+    ui.p(ui.strong("AI backend: "), AI_BACKEND)
+    ui.p("For Ollama Cloud, set AI_BACKEND='ollama_cloud' and OLLAMA_API_KEY in Settings >> Variables.")
+    ui.hr()
+    ui.p(ui.strong("Charts: "), "On" if HAS_PLOTLY else "Off (install plotly, shinywidgets)")
 
 
-@reactive.Calc
+def _empty_figure(message="Run market analysis to load data."):
+    """Return a simple Plotly figure with a message when no data is available."""
+    if not HAS_PLOTLY or go is None:
+        return None
+    fig = go.Figure()
+    fig.add_annotation(
+        text=message,
+        xref="paper", yref="paper", x=0.5, y=0.5,
+        showarrow=False, font=dict(size=14),
+    )
+    fig.update_layout(height=280, margin=dict(l=40, r=40, t=40, b=40), xaxis=dict(visible=False), yaxis=dict(visible=False))
+    return fig
+
+
+@reactive.calc
 def analysis_result():
     """Run Census + AI market analysis when button is clicked."""
     if input.run() == 0:
@@ -261,27 +314,193 @@ def analysis_result():
     return {"error": None, "records": records, "summary": summary, "ran": True}
 
 
-# Demographic profile table
-with ui.card():
-    ui.card_header("Demographic profile (2022 ACS 5-year)")
-    @render.data_frame
-    def demo_table():
-        res = analysis_result()
-        if not res["records"]:
-            return render.DataGrid(pd.DataFrame(), height="200px")
-        raw = pd.DataFrame(res["records"])
-        display = pd.DataFrame()
-        display["Location"] = raw["name"]
-        display["Population"] = raw["population"].apply(lambda x: f"{x:,}" if pd.notna(x) else "—")
-        display["Median age"] = raw["median_age"].apply(lambda x: str(x) if pd.notna(x) else "—")
-        display["Median income"] = raw["median_income"].apply(lambda x: f"${x:,}" if pd.notna(x) else "—")
-        display["Median home value"] = raw["median_home_value"].apply(lambda x: f"${x:,}" if pd.notna(x) else "—")
-        return render.DataGrid(display, height="300px")
+with ui.layout_columns(fill=False):
+    with ui.value_box(showcase=ICONS["people"]):
+        "Total population (selected)"
+
+        @render.text
+        def total_population():
+            res = analysis_result()
+            if not res["records"]:
+                return "—"
+            total = sum((r.get("population") or 0) for r in res["records"])
+            return f"{total:,}"
+
+    with ui.value_box(showcase=ICONS["income"]):
+        "Median household income"
+
+        @render.text
+        def median_income_box():
+            res = analysis_result()
+            if not res["records"]:
+                return "—"
+            raw = pd.DataFrame(res["records"])
+            vals = raw["median_income"].dropna()
+            if vals.empty:
+                return "—"
+            return f"${int(vals.median()):,}"
+
+    with ui.value_box(showcase=ICONS["housing"]):
+        "Median home value"
+
+        @render.text
+        def median_home_box():
+            res = analysis_result()
+            if not res["records"]:
+                return "—"
+            raw = pd.DataFrame(res["records"])
+            vals = raw["median_home_value"].dropna()
+            if vals.empty:
+                return "—"
+            return f"${int(vals.median()):,}"
 
 
-# AI-driven market insights
+# Demographic profile table and chart
+_cols = [7, 5] if HAS_PLOTLY else [12]
+with ui.layout_columns(col_widths=_cols):
+    with ui.card():
+        ui.card_header("Demographic profile (2022 ACS 5-year)")
+
+        @render.data_frame
+        def demo_table():
+            res = analysis_result()
+            if not res["records"]:
+                return render.DataGrid(pd.DataFrame(), height="200px")
+            raw = pd.DataFrame(res["records"])
+            display = pd.DataFrame()
+            display["Location"] = raw["name"]
+            display["Population"] = raw["population"].apply(lambda x: f"{x:,}" if pd.notna(x) else "—")
+            display["Median age"] = raw["median_age"].apply(lambda x: str(x) if pd.notna(x) else "—")
+            display["Median income"] = raw["median_income"].apply(lambda x: f"${x:,}" if pd.notna(x) else "—")
+            display["Median home value"] = raw["median_home_value"].apply(
+                lambda x: f"${x:,}" if pd.notna(x) else "—"
+            )
+            return render.DataGrid(display, height="300px")
+
+    if HAS_PLOTLY:
+        with ui.card():
+            ui.card_header("Income vs home value (selected locations)")
+
+            @render_plotly
+            def income_home_chart():
+                try:
+                    res = analysis_result()
+                    if not res["records"]:
+                        return _empty_figure("Run market analysis to see income vs home value.")
+                    raw = pd.DataFrame(res["records"])
+                    mask = raw["median_income"].notna() & raw["median_home_value"].notna()
+                    if not mask.any():
+                        return _empty_figure("No income/home value data for this selection.")
+                    data = raw.loc[mask].copy()
+                    # Trendline needs at least 2 points; skip to avoid OLS errors
+                    use_trendline = "ols" if len(data) >= 2 else False
+                    fig = px.scatter(
+                        data,
+                        x="median_income",
+                        y="median_home_value",
+                        hover_name="name",
+                        labels={
+                            "median_income": "Median household income ($)",
+                            "median_home_value": "Median home value ($)",
+                        },
+                        trendline=use_trendline,
+                    )
+                    fig.update_layout(height=320, margin=dict(l=40, r=20, t=40, b=40))
+                    return fig
+                except Exception as e:
+                    return _empty_figure(f"Could not draw chart: {e}")
+
+# Extra visualizations when plotly is available
+if HAS_PLOTLY:
+    ui.p(ui.strong("Charts"), " — Run market analysis (sidebar) to populate the visualizations below.", class_="text-muted")
+    with ui.layout_columns(col_widths=[6, 6]):
+        with ui.card():
+            ui.card_header("Population by location (top 20)")
+
+            @render_plotly
+            def population_bars():
+                try:
+                    res = analysis_result()
+                    if not res["records"]:
+                        return _empty_figure("Run market analysis to see population by location.")
+                    raw = pd.DataFrame(res["records"])
+                    top = raw.nlargest(20, "population")
+                    top = top.sort_values("population", ascending=True)
+                    fig = px.bar(
+                        top,
+                        x="population",
+                        y="name",
+                        orientation="h",
+                        labels={"population": "Population", "name": ""},
+                        text="population",
+                    )
+                    fig.update_traces(texttemplate="%{text:,.0f}", textposition="outside")
+                    fig.update_layout(height=400, margin=dict(l=10, r=40, t=20, b=40), showlegend=False)
+                    return fig
+                except Exception as e:
+                    return _empty_figure(f"Could not draw chart: {e}")
+
+        with ui.card():
+            ui.card_header("Median household income by location (top 20)")
+
+            @render_plotly
+            def income_bars():
+                try:
+                    res = analysis_result()
+                    if not res["records"]:
+                        return _empty_figure("Run market analysis to see income by location.")
+                    raw = pd.DataFrame(res["records"]).dropna(subset=["median_income"])
+                    if raw.empty:
+                        return _empty_figure("No income data for this selection.")
+                    top = raw.nlargest(20, "median_income")
+                    top = top.sort_values("median_income", ascending=True)
+                    fig = px.bar(
+                        top,
+                        x="median_income",
+                        y="name",
+                        orientation="h",
+                        labels={"median_income": "Median income ($)", "name": ""},
+                        text="median_income",
+                    )
+                    fig.update_traces(texttemplate="$%{text:,.0f}", textposition="outside")
+                    fig.update_layout(height=400, margin=dict(l=10, r=60, t=20, b=40), showlegend=False)
+                    return fig
+                except Exception as e:
+                    return _empty_figure(f"Could not draw chart: {e}")
+
+    with ui.layout_columns(col_widths=[12]):
+        with ui.card():
+            ui.card_header("Distribution of median age across selected locations")
+
+            @render_plotly
+            def age_distribution():
+                try:
+                    res = analysis_result()
+                    if not res["records"]:
+                        return _empty_figure("Run market analysis to see age distribution.")
+                    raw = pd.DataFrame(res["records"])
+                    ages = raw["median_age"].dropna()
+                    if ages.empty:
+                        return _empty_figure("No age data for this selection.")
+                    n = len(ages)
+                    if n == 1:
+                        return _empty_figure("Select multiple locations (e.g. All states or Counties) to see age distribution.")
+                    nbins = min(20, max(3, n // 2))
+                    fig = px.histogram(
+                        x=ages,
+                        nbins=nbins,
+                        labels={"x": "Median age (years)", "y": "Number of locations"},
+                    )
+                    fig.update_layout(height=280, margin=dict(l=50, r=20, t=20, b=50))
+                    return fig
+                except Exception as e:
+                    return _empty_figure(f"Could not draw chart: {e}")
+
+
+# AI-driven market and lifestyle insights
 with ui.card():
-    ui.card_header("AI market insights — opportunities & risks")
+    ui.card_header("AI market insights — everyday life, opportunities & risks")
+
     @render.ui
     def insights():
         res = analysis_result()
