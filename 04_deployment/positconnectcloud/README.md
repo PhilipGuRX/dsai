@@ -23,6 +23,7 @@ Complete these activities in order:
 ## Readings
 
 - See Example Apps in `shinypy` and `shinyr` folders!
+- **Census + AI app** (from DigitalOcean): see `shinypy_census/` for the same app adapted for Posit Connect Cloud.
 
 ---
 
