@@ -1,0 +1,7 @@
+location_name,segment_zone,recorded_at,congestion_level
+Main & 5th,Downtown,2026-03-09T07:00:00Z,5
+Main & 5th,Downtown,2026-03-09T12:00:00Z,4
+Highway 101 @ Exit 12,North Corridor,2026-03-09T08:30:00Z,5
+Downtown Plaza,Central,2026-03-09T09:00:00Z,4
+River Bridge South,East Side,2026-03-09T06:00:00Z,2
+Airport Access Rd,West,2026-03-09T05:00:00Z,1
