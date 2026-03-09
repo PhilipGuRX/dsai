@@ -4,6 +4,40 @@
 
 Pipeline: **Supabase (PostgreSQL)** → **REST API (FastAPI)** → **Dashboard (Shiny for Python)** → **AI (OpenAI / Ollama Cloud)**.
 
+---
+
+## For graders — running from a fresh clone
+
+All paths below are **from the repository root** (the folder that contains `05_hackathon/`).
+
+1. **Supabase**  
+   Create a project at [supabase.com](https://supabase.com). In SQL Editor, run the full contents of **`05_hackathon/midterm_pipeline/supabase/schema.sql`**. Copy Project URL and anon key from Settings → API.
+
+2. **Environment**  
+   From repo root:
+   ```bash
+   cp 05_hackathon/midterm_pipeline/.env.example 05_hackathon/midterm_pipeline/.env
+   ```
+   Edit `05_hackathon/midterm_pipeline/.env` and set `SUPABASE_URL`, `SUPABASE_KEY`, and `OLLAMA_API_KEY` (or `OPENAI_API_KEY`). See **CODEBOOK.md** in this folder for all variables.
+
+3. **API** (Python 3.10+; use a venv if you prefer):
+   ```bash
+   cd 05_hackathon/midterm_pipeline/api
+   pip install -r requirements.txt
+   uvicorn main:app --host 0.0.0.0 --port 8000
+   ```
+   Keep this terminal open. API will be at http://localhost:8000.
+
+4. **Dashboard** (in a second terminal):
+   ```bash
+   cd 05_hackathon/midterm_pipeline/dashboard
+   pip install -r requirements.txt
+   shiny run app.py --port 5000
+   ```
+   Open http://localhost:5000. Click **Explore** to load data, then **Get AI summary** for the AI narrative.
+
+**Deployed app:** If a live link was added below, you can use that instead of running locally.
+
 ## Architecture
 
 ```
