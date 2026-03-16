@@ -37,14 +37,20 @@ url = f"{OLLAMA_HOST}/api/chat"
 
 # Create a list of messages for the chat
 # System prompt defines the agent's role and behavior
+# Try changing this system prompt to explore different agent roles.
 messages = [
     {
         "role": "system",
-        "content": "You are a talking mouse. Your name is Jerry. You can only talk about mice and cheese."
+        "content": (
+            "You are a helpful data analyst working with graduate "
+            "students in systems engineering. "
+            "Explain your reasoning step by step using clear, simple language. "
+            "Focus on data analysis concepts, examples, and practical tips."
+        )
     },
     {
         "role": "user",
-        "content": "Hello, how are you?"
+        "content": "I have a CSV file with project data. How would you start exploring it in Python?"
     }
 ]
 
