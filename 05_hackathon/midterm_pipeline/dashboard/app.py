@@ -211,7 +211,8 @@ def _on_load():
         params = {"days": input.days() or None}
         if input.location():
             params["location"] = input.location()
-        r = requests.get(f"{API_BASE}/readings", params=params, timeout=30)
+        # Hosted APIs (e.g. Render free tier) may need >30s on cold start
+        r = requests.get(f"{API_BASE}/readings", params=params, timeout=120)
         r.raise_for_status()
         current_data.set(r.json())
     except requests.RequestException as e:
