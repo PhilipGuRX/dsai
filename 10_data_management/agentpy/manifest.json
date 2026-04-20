@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "locale": ".UTF-8",
+  "metadata": {
+    "appmode": "python-api",
+    "entrypoint": "app.api:app"
+  },
+  "python": {
+    "version": "3.12.4",
+    "package_manager": {
+      "name": "pip",
+      "version": "26.0",
+      "package_file": "requirements.txt"
+    }
+  },
+  "files": {
+    "requirements.txt": {
+      "checksum": "9b088d20665a7b613166df1092fcbeaf"
+    },
+    ".env.example": {
+      "checksum": "bf2a5e81112b9ae493bb17fd41c48ee1"
+    },
+    "AGENT.md": {
+      "checksum": "f029a5b9cf11f7594871fd4dabedaa78"
+    },
+    "README.md": {
+      "checksum": "d404e84f8873cbd7a0a41c9d887fb9a4"
+    },
+    "app/__init__.py": {
+      "checksum": "2f6b00056ab5afdc2294d13f9d247cbd"
+    },
+    "app/api.py": {
+      "checksum": "33bab200653e2ddd1d606065638c0271"
+    },
+    "app/context.py": {
+      "checksum": "2bb98340791dc58d7d6cf3232481e448"
+    },
+    "app/guardrails.py": {
+      "checksum": "f8e7ef95147f20172b0c48b5ca95c039"
+    },
+    "app/logging_setup.py": {
+      "checksum": "01dcf29eb8b1a7bfc32d2aa6820ec84d"
+    },
+    "app/loop.py": {
+      "checksum": "b675339cd970939b1cc98fc988c73f44"
+    },
+    "app/tools.py": {
+      "checksum": "8b75570729fff94d77656d37d0c14817"
+    },
+    "deployme.sh": {
+      "checksum": "f0b1ad4dcac1c70b3323e6f783dcca0d"
+    },
+    "logs/.gitkeep": {
+      "checksum": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "logs/agent.log": {
+      "checksum": "7d3e59b5bbcf988d10b4348f70229579"
+    },
+    "manifestme.sh": {
+      "checksum": "63479933d7f0e5cf20e21e84a410aa3c"
+    },
+    "runme.sh": {
+      "checksum": "12e88633a8c4ce80a2749ce1b4ed8849"
+    },
+    "skills/README.md": {
+      "checksum": "3c547e6584a538f04ac9d6c35ec1e026"
+    },
+    "skills/disaster_situational_brief.md": {
+      "checksum": "057079b4db0098df375254c2fdf7e73b"
+    },
+    "skills/evidence_brief.md": {
+      "checksum": "e58557d9c01d606b480149cad5d87696"
+    },
+    "skills/references_section.md": {
+      "checksum": "393405910bf622ca65538fcb697317cc"
+    },
+    "skills/source_quality.md": {
+      "checksum": "7de50051c39b6c8d1e74b3d4ed1342cf"
+    },
+    "testme.py": {
+      "checksum": "d694825d081909b04dd09ac60330ceff"
+    }
+  }
+}

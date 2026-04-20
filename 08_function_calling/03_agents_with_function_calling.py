@@ -69,6 +69,35 @@ def get_table(df=None):
         df = pd.DataFrame([df])
     return df.to_markdown(index=False)
 
+
+# Define a third function to be used as a tool (student extension example)
+def calculate_average(numbers):
+    """
+    Return the arithmetic mean of a list of numbers.
+
+    Parameters:
+    -----------
+    numbers : list of numbers, or a single number
+        Values to average. Tool arguments may arrive as JSON lists or strings.
+
+    Returns:
+    --------
+    float
+        The mean, or 0.0 if the list is empty after coercion.
+    """
+    if numbers is None:
+        return 0.0
+    if isinstance(numbers, str):
+        try:
+            numbers = json.loads(numbers)
+        except Exception:
+            pass
+    if not isinstance(numbers, (list, tuple)):
+        numbers = [numbers]
+    nums = [float(x) for x in numbers]
+    return sum(nums) / len(nums) if nums else 0.0
+
+
 # 2. DEFINE TOOL METADATA ###################################
 
 # Define the tool metadata for add_two_numbers
@@ -111,6 +140,26 @@ tool_get_table = {
             }
         }
     }
+}
+
+# Define the tool metadata for calculate_average
+tool_calculate_average = {
+    "type": "function",
+    "function": {
+        "name": "calculate_average",
+        "description": "Compute the arithmetic mean of a list of numbers",
+        "parameters": {
+            "type": "object",
+            "required": ["numbers"],
+            "properties": {
+                "numbers": {
+                    "type": "array",
+                    "items": {"type": "number"},
+                    "description": "Numeric values to average together",
+                }
+            },
+        },
+    },
 }
 
 # 3. EXAMPLE 1: STANDARD CHAT (NO TOOLS) ###################################
@@ -172,3 +221,31 @@ print(manual_table)
 print()
 
 # Note: We can use the agent() function to rapidly build and test out agents with or without tools.
+
+# 6. EXAMPLE 4: NEW TOOL (calculate_average) ###################################
+
+# Prompt the model to call calculate_average; agent() runs the Python function and attaches output.
+messages = [
+    {
+        "role": "user",
+        "content": "What is the average of 10, 20, and 30? Use the calculate_average tool.",
+    }
+]
+
+resp3 = agent(
+    messages=messages,
+    model=MODEL,
+    output="tools",
+    tools=[tool_calculate_average],
+)
+print("Tool Call #3 (calculate_average) Result:")
+print(resp3)
+print()
+
+if isinstance(resp3, list) and len(resp3) > 0:
+    print(f"Tool output: {resp3[0].get('output', 'No output')}")
+    print()
+
+# Sanity check: same result without the model (verifies the tool implementation)
+direct_avg = calculate_average([10, 20, 30])
+print(f"Direct call calculate_average([10, 20, 30]) = {direct_avg}")

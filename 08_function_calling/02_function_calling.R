@@ -17,6 +17,10 @@ add_two_numbers = function(x, y){
     return(x + y)
 }
 
+multiply_numbers = function(x, y){
+    return(x * y)
+}
+
 # Define the tool metadata as a list
 tool_add_two_numbers = list(
     type = "function",
@@ -34,9 +38,31 @@ tool_add_two_numbers = list(
     )
 )
 
-# Create a simple chat history with a user question that will require the tool
-messages = create_message(role = "user", content = "What is 3 + 2?")
-resp = chat(model = MODEL, messages = messages, tools = list(tool_add_two_numbers), output = "tools", stream = FALSE)
+tool_multiply_numbers = list(
+    type = "function",
+    "function" = list(
+        name = "multiply_numbers",
+        description = "Multiply two numbers",
+        parameters = list(
+            type = "object",
+            required = list("x", "y"),
+            properties = list(
+                x = list(type = "numeric", description = "first number"),
+                y = list(type = "numeric", description = "second number")
+            )
+        )
+    )
+)
+
+# Ask for multiplication so the model should emit multiply_numbers
+messages = create_message(role = "user", content = "What is 6 times 7?")
+resp = chat(
+    model = MODEL,
+    messages = messages,
+    tools = list(tool_add_two_numbers, tool_multiply_numbers),
+    output = "tools",
+    stream = FALSE
+)
 
 # Receive back the tool call
 tool = resp[[1]]
