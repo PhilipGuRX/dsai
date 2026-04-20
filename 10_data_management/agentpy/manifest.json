@@ -17,6 +17,9 @@
     "requirements.txt": {
       "checksum": "9b088d20665a7b613166df1092fcbeaf"
     },
+    ".env": {
+      "checksum": "a60a94d78a499fbf17663b751792c485"
+    },
     ".env.example": {
       "checksum": "bf2a5e81112b9ae493bb17fd41c48ee1"
     },
@@ -28,6 +31,27 @@
     },
     "app/__init__.py": {
       "checksum": "2f6b00056ab5afdc2294d13f9d247cbd"
+    },
+    "app/__pycache__/__init__.cpython-312.pyc": {
+      "checksum": "ee0e979fc90df6918d285dcdb2792d5d"
+    },
+    "app/__pycache__/api.cpython-312.pyc": {
+      "checksum": "c18af3cdc4115e37074911f6cf01dd55"
+    },
+    "app/__pycache__/context.cpython-312.pyc": {
+      "checksum": "a47c381476a8a960a7395549138dce57"
+    },
+    "app/__pycache__/guardrails.cpython-312.pyc": {
+      "checksum": "cdaa903d2bb4783bf76059b051c48749"
+    },
+    "app/__pycache__/logging_setup.cpython-312.pyc": {
+      "checksum": "33f8b49b54003f82804678b533c1ec65"
+    },
+    "app/__pycache__/loop.cpython-312.pyc": {
+      "checksum": "8942990fffffd2c8d3d912476acc5554"
+    },
+    "app/__pycache__/tools.cpython-312.pyc": {
+      "checksum": "ad001e09b2fe88adff3a5e0af4676c53"
     },
     "app/api.py": {
       "checksum": "33bab200653e2ddd1d606065638c0271"
@@ -54,7 +78,7 @@
       "checksum": "d41d8cd98f00b204e9800998ecf8427e"
     },
     "logs/agent.log": {
-      "checksum": "7d3e59b5bbcf988d10b4348f70229579"
+      "checksum": "5e86ba214aa6186523c0e22c4dfbb364"
     },
     "manifestme.sh": {
       "checksum": "63479933d7f0e5cf20e21e84a410aa3c"
