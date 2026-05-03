@@ -1,0 +1,60 @@
+# Stage 2: schedule + working-directory + commit-back of traffic.db
+# Stage 3: R package caching via r-lib/actions/setup-r-dependencies
+
+name: 12-ingest-r
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 8 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: 12-end-traffic-db-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  ingest_r:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 12_end
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.5.2"
+          use-public-rspm: true
+
+      - name: Set up R dependencies (cached — Stage 3)
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          working-directory: 12_end
+
+      - name: Run R traffic ingest
+        env:
+          TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
+        run: Rscript 01_ingest_traffic.R
+
+      - name: Verify SQLite rows (metro_id 948)
+        run: |
+          Rscript -e "con <- DBI::dbConnect(RSQLite::SQLite(), 'data/traffic.db'); on.exit(DBI::dbDisconnect(con)); n <- DBI::dbGetQuery(con, 'SELECT COUNT(*) AS n FROM traffic WHERE metro_id = 948')[['n']]; if (n < 1) stop('Expected rows for metro_id=948, found ', n); message('OK: ', n, ' row(s) for metro_id=948')"
+
+      - name: Commit and push updated traffic.db
+        working-directory: ${{ github.workspace }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 12_end/data/traffic.db
+          if git diff --staged --quiet; then
+            echo "No changes to traffic.db (nothing to commit)"
+          else
+            git commit -m "chore(ci): refresh 12_end/data/traffic.db via 12-ingest-r [skip ci]"
+            git push
+          fi

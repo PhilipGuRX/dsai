@@ -1,0 +1,16 @@
+Package: trafficingestdeps
+Type: Package
+Title: CI dependency stub for 12_end traffic ingest
+Version: 0.0.0.9000
+Encoding: UTF-8
+Author: Course materials
+Maintainer: Course materials <none@example.org>
+Description: Not a published R package. Declares Imports so
+    r-lib/actions/setup-r-dependencies can install packages for
+    01_ingest_traffic.R on GitHub Actions.
+License: CC0
+Imports:
+    DBI,
+    RSQLite,
+    httr2,
+    jsonlite
