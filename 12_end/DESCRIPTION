@@ -13,4 +13,5 @@ Imports:
     DBI,
     RSQLite,
     httr2,
-    jsonlite
+    jsonlite,
+    xgboost
