@@ -1,0 +1,60 @@
+# Weekly XGBoost retrain (R) — writes 12_end/data/modelr.json
+
+name: 12-train-r
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 7 * * 1" # Mondays 07:30 UTC (stagger from Python train)
+
+permissions:
+  contents: write
+
+concurrency:
+  group: 12-end-train-models-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  train_r:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 12_end
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.5.2"
+          use-public-rspm: true
+
+      - name: Set up R dependencies (cached)
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          working-directory: 12_end
+
+      - name: Train XGBoost and write modelr.json
+        run: Rscript 02_train_model.R
+
+      - name: Upload xgboost-model artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: xgboost-model
+          path: 12_end/data/modelr.json
+          if-no-files-found: error
+
+      - name: Commit and push data/modelr.json
+        working-directory: ${{ github.workspace }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 12_end/data/modelr.json
+          if git diff --staged --quiet; then
+            echo "No changes to modelr.json"
+          else
+            git commit -m "chore(ci): refresh 12_end/data/modelr.json via 12-train-r [skip ci]"
+            git push
+          fi
