@@ -1,0 +1,9 @@
+{
+  "priority_alignment": 95,
+  "table_coverage": 8,
+  "source_fidelity": 75,
+  "structure_compliance": 3,
+  "exclusion_quality": 1,
+  "evidence": "Venue 2 (The Grand Metropolitan Hotel) is excluded due to its high catering cost and lack of a preferred vendor list. It does not fit the client's budget or desire for an in-house caterer.",
+  "composite_score": 82.0
+}
