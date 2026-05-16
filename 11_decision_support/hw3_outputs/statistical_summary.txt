@@ -1,0 +1,14 @@
+Composite score by prompt:
+           count   mean   std
+prompt_id                    
+A              6  72.76  5.13
+B              6  83.72  4.72
+C              6  79.47  4.78
+
+
+Bartlett test: stat=0.0383, p=0.9810, equal_var=True
+
+
+T-test (B vs C): T=1.5479, p=0.1527
+
+One-way ANOVA: F=7.6818, p=0.0050
